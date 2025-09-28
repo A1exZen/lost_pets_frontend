@@ -1,7 +1,7 @@
-import React from 'react';
-import styles from './PetList.module.scss';
-import { PetCard } from '../PetCard';
 import type { Pet } from '@/types/Pet';
+import React from 'react';
+import { PetCard } from '../PetCard';
+import styles from './PetList.module.scss';
 
 interface PetListProps {
   pets: Pet[];
@@ -20,7 +20,7 @@ export const PetList: React.FC<PetListProps> = ({
   return (
     <div className={styles.listContainer}>
       <div className={styles.list}>
-        {pets.map((pet, index) => (
+        {pets.map((pet) => (
           <PetCard
             key={pet.id}
             pet={pet}
