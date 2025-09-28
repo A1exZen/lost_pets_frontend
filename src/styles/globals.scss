@@ -1,0 +1,20 @@
+@use './normalize.css';
+@use './fonts';
+@use './variables' as v;
+
+:root {
+  font-family: v.$primary-font;
+}
+
+.container {
+  margin: v.$container-margin auto;
+  max-width: v.$container-max-width;
+  padding: 0 v.$container-padding;
+  display: flex;
+  gap: v.$gap-large;
+  justify-content: space-between;
+
+  @media (max-width: v.$breakpoint-tablet) {
+    flex-direction: column;
+  }
+}
