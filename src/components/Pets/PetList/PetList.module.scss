@@ -1,0 +1,40 @@
+@use '../../../styles/variables' as v;
+
+.listContainer {
+  position: relative;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2.5rem;
+  padding: 1rem;
+  max-width: v.$container-max-width;
+  margin: 0 auto;
+
+  
+}
+.noPets {
+    text-align: center;
+    font-size: 1.2rem;
+    color: v.$text-color;
+    padding: 2rem;
+  }
+
+@media (max-width: v.$breakpoint-tablet) {
+  .list {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (max-width: v.$breakpoint-mobile) {
+  .list {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .listContainer {
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,125 @@
+@use '../../styles/variables' as v;
+
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  
+  background-color: rgba(v.$secondary-color, 0.6);
+  backdrop-filter: blur(5px);
+  box-shadow: v.$shadow-elegant;
+}
+
+.container {
+  max-width: v.$container-max-width;
+  margin: 0 auto;
+  padding: 10px v.$container-padding;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+}
+
+.logo {
+  text-decoration: none;
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1;
+  transition: v.$transition;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.logoText {
+  color: v.$text-color; 
+}
+
+.logoHighlight {
+  color: v.$primary-color; 
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.link, .logout {
+  text-decoration: none;
+  color: v.$text-color;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: v.$transition;
+  white-space: nowrap; 
+  cursor: pointer;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: v.$primary-color;
+    transition: width 0.3s ease;
+  }
+
+  &:hover, &:focus {
+    color: v.$primary-color;
+    &::after {
+      width: 100%;
+    }
+  }
+
+  &.logout button {
+    all: unset; 
+    cursor: pointer;
+  }
+  
+  &_primary {
+    background-color: v.$accent-color;
+    color: white;
+    padding: v.$button-padding;
+    border-radius: v.$border-radius;
+    box-shadow: 0 2px 8px rgba(v.$accent-color, 0.4);
+    font-weight: 600;
+    
+    &:hover, &:focus {
+      box-shadow: 0 4px 12px rgba(v.$accent-color, 0.6);
+      transform: translateY(-1px);
+      color: white; 
+      &::after {
+        content: none; 
+      }
+    }
+  }
+}
+
+@media (max-width: v.$breakpoint-tablet) {
+  .container {
+    padding: 10px 15px; 
+  }
+
+  .navLinks {
+    gap: 1rem;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+
+  .link {
+    font-size: 0.9rem;
+    padding: 0.3rem 0;
+    
+    &_primary {
+      padding: 0.4rem 1rem;
+    }
+  }
+}
