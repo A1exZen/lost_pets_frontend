@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { getPets } from '../../services/api';
-import type { Pet } from '../../types/Pet';
+
 import styles from './Home.module.scss';
+import type { Pet } from '@/types/Pet';
+import { getPets } from '@/services/api';
 
 export const Home: React.FC = () => {
   const [pets, setPets] = useState<Pet[]>([]);

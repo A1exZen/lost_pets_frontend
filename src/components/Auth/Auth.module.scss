@@ -1,0 +1,175 @@
+@use '../../styles/variables' as v;
+
+.authWrapper {
+  min-height: 100vh;
+  padding-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(v.$overlay-color, 0.6), rgba(v.$primary-color, 0.2));
+    z-index: 1;
+  }
+}
+
+.authCard {
+  position: relative;
+  z-index: 2;
+  background: rgba(v.$secondary-color, 0.95);
+  padding: 2rem;
+  border-radius: v.$border-radius;
+  box-shadow: v.$shadow-elegant;
+  width: 100%;
+  max-width: 400px;
+  transition: transform 0.3s ease;
+
+}
+
+.title {
+  font-size: v.$hero-title-size;
+  color: v.$primary-color;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputRow {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .inputWrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .input {
+    flex: 1;
+    padding: v.$search-input-padding;
+    border: 2px solid v.$secondary-color;
+    border-radius: v.$border-radius;
+    font-size: v.$search-input-font-size;
+    background: rgba(255, 255, 255, 0.9);
+    color: v.$text-color;
+    transition: v.$transition;
+
+    &:focus {
+      outline: none;
+      border-color: v.$accent-color;
+      box-shadow: v.$shadow-elegant;
+    }
+
+    &::placeholder {
+      color: v.$text-color;
+      opacity: 0.7;
+    }
+  }
+
+  @media (max-width: v.$breakpoint-tablet) {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+.error {
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+.submitButton {
+  padding: v.$button-padding;
+  background: rgba(v.$accent-color, 0.9);
+  border: none;
+  border-radius: v.$border-radius;
+  color: v.$secondary-color;
+  font-size: v.$button-font-size;
+  font-weight: 600;
+  cursor: pointer;
+  transition: v.$transition;
+  box-shadow: v.$shadow-elegant;
+
+  &:hover {
+    background: v.$accent-color;
+    transform: translateY(-2px);
+  }
+
+}
+
+.logoutWrapper {
+  padding: 1rem;
+}
+
+.logoutButton {
+  padding: v.$button-padding;
+  background: v.$primary-color;
+  border: none;
+  border-radius: v.$border-radius;
+  color: v.$secondary-color;
+  font-size: v.$button-font-size;
+  font-weight: 600;
+  cursor: pointer;
+  transition: v.$transition;
+  box-shadow: v.$shadow-elegant;
+
+  &:hover {
+    background: v.$primary-color;
+    transform: translateY(-2px);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(v.$accent-color, 0.5);
+  }
+}
+
+@media (max-width: v.$breakpoint-tablet) {
+  .authCard {
+    max-width:350px;
+    padding: 1.5rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: v.$breakpoint-mobile) {
+  .authCard {
+    max-width: 350px;
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .input {
+    font-size: 0.9rem;
+  }
+
+  .submitButton,
+  .logoutButton {
+    font-size: 0.9rem;
+  }
+}
