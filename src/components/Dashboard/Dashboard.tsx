@@ -4,6 +4,7 @@ import styles from './Dashboard.module.scss';
 import { useAuth } from '@/hooks/useAuth';
 import type { Pet } from '@/types/Pet';
 import { deletePet, getUserPets } from '@/services/api';
+import { PetList } from '../Pets/PetList';
 
 export const Dashboard: React.FC = () => {
 	const { user } = useAuth();

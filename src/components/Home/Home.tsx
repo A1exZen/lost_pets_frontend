@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from './Home.module.scss';
 import type { Pet } from '@/types/Pet';
 import { getPets } from '@/services/api';
+import { PetList } from '../Pets/PetList';
 
 export const Home: React.FC = () => {
   const [pets, setPets] = useState<Pet[]>([]);
