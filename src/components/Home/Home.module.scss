@@ -1,0 +1,195 @@
+@use '../../styles/variables' as v;
+
+.main-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: v.$primary-font;
+}
+
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  background: url('https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: v.$overlay-color;
+    z-index: 1;
+  }
+}
+
+.overlay {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: v.$secondary-color;
+  padding: v.$hero-padding;
+
+  .hero-title {
+    font-size: v.$hero-title-size;
+    margin: 0;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 1s ease-in;
+		color: white;
+  }
+
+  .hero-subtitle {
+    font-size: v.$hero-subtitle-size;
+    margin: 1rem 0;
+    opacity: 0.9;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+		color: white;
+  }
+
+  .search-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 800px;
+    margin: 2rem auto;
+
+    .search-input,
+    .filter-select {
+      padding: v.$search-input-padding;
+      border: 2px solid v.$secondary-color;
+      border-radius: v.$border-radius;
+      font-size: v.$search-input-font-size;
+      background: rgba(255, 255, 255, 0.9);
+      color: v.$text-color;
+      transition: v.$transition;
+
+      &:focus {
+        outline: none;
+        border-color: v.$accent-color;
+        box-shadow: v.$shadow-elegant;
+      }
+
+      &::placeholder {
+        color: v.$text-color;
+        opacity: 0.7;
+      }
+    }
+
+    .find-button {
+      padding: v.$button-padding;
+      background: v.$primary-color;
+      border: none;
+      border-radius: v.$border-radius;
+      color: v.$secondary-color;
+      font-size: v.$button-font-size;
+      font-weight: 600;
+      cursor: pointer;
+      transition: v.$transition;
+      box-shadow: v.$shadow-elegant;
+
+      &:hover {
+        transform: translateY(-2px);
+      }
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(v.$accent-color, 0.5);
+      }
+    }
+  }
+}
+
+.content {
+  flex: 1;
+  margin: 1rem auto;
+  padding: 4rem v.$container-padding;
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: v.$pagination-gap;
+  padding: v.$pagination-padding;
+
+  .pagination-button {
+    padding: v.$button-padding;
+    background: v.$accent-color;
+    color: white;
+    border: none;
+    border-radius: v.$border-radius;
+    cursor: pointer;
+    font-size: v.$button-font-size;
+    transition: v.$transition;
+
+    &:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+  }
+
+  .pagination-info {
+    font-size: v.$button-font-size;
+    color: v.$text-color;
+    font-weight: 500;
+  }
+}
+
+.loading {
+  margin-top: 2rem;
+  text-align: center;
+  padding: v.$hero-padding;
+  font-size: 1.5rem;
+  color: v.$secondary-color;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: v.$breakpoint-tablet) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .search-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .search-input,
+    .filter-select,
+    .find-button {
+      width: 100%;
+    }
+  }
+
+  .content {
+    padding: 0;
+  }
+
+  .pagination {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: v.$breakpoint-mobile) {
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .search-controls {
+    gap: 0.3rem;
+  }
+}
