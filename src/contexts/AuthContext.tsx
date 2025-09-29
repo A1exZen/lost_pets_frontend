@@ -1,3 +1,4 @@
+import { Loading } from '@/components/Loading';
 import { loginUser, registerUser } from '@/services/api';
 import type { AuthContextType } from '@/types/AuthContextType';
 import type { User } from '@/types/User';
@@ -58,7 +59,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   if (isLoading && !user) {
-    return <div>Загрузка...</div>;
+    return <Loading/>
   }
 
   return (

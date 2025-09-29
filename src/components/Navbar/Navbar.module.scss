@@ -15,8 +15,8 @@
 
 .container {
   max-width: v.$container-max-width;
-  margin: 0 auto;
-  padding: 10px v.$container-padding;
+  margin: 1rem auto;
+  padding: 0 v.$container-padding;
   display: flex;
   justify-content: space-between; 
   align-items: center;
@@ -102,9 +102,9 @@
 }
 
 @media (max-width: v.$breakpoint-tablet) {
-  .container {
-    padding: 10px 15px; 
-  }
+  // .container {
+  //   padding: 10px 15px; 
+  // }
 
   .navLinks {
     gap: 1rem;

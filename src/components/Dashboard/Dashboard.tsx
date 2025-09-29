@@ -5,6 +5,7 @@ import { useAuth } from '@/hooks/useAuth';
 import type { Pet } from '@/types/Pet';
 import { deletePet, getUserPets } from '@/services/api';
 import { PetList } from '../Pets/PetList';
+import { Loading } from '../Loading';
 
 export const Dashboard: React.FC = () => {
 	const { user } = useAuth();
@@ -29,7 +30,7 @@ export const Dashboard: React.FC = () => {
 		}
 	};
 	
-	if (loading) return <div className={styles.loading}>Загрузка...</div>;
+	if (loading) return <><Loading/></>
 	
 	return (
 		<div className={styles.container}>

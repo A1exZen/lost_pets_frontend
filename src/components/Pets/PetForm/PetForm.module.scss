@@ -2,7 +2,6 @@
 
 .container {
   min-height: 100vh;
-  margin-top: 5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,6 +11,7 @@
 }
 
 .title {
+  margin-top: 5rem;
   font-size: v.$hero-title-size;
   color: v.$primary-color;
   text-align: center;
