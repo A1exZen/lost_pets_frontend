@@ -14,7 +14,6 @@ import PetEdit from './components/Pets/PetForm/PetEdit.tsx';
 import { AuthProvider } from './contexts/AuthContext';
 import { useAuth } from './hooks/useAuth';
 import './styles/globals.scss';
-import { Loading } from './components/Loading/Loading.tsx';
 
 const ProtectedRoute: React.FC<{ children: React.ReactElement }> = ({
   children,
