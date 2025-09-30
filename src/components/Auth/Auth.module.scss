@@ -6,7 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url('src/assets/bg-dogs.jpg') no-repeat center center/cover;
+  background: url('/bg-dogs.jpg') no-repeat center center/cover;
   position: relative;
 
   &:before {
@@ -16,7 +16,11 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(v.$overlay-color, 0.6), rgba(v.$primary-color, 0.2));
+    background: linear-gradient(
+      135deg,
+      rgba(v.$overlay-color, 0.6),
+      rgba(v.$primary-color, 0.2)
+    );
     z-index: 1;
   }
 }
@@ -32,7 +36,6 @@
   width: 100%;
   max-width: 400px;
   transition: transform 0.3s ease;
-
 }
 
 .title {
@@ -115,7 +118,6 @@
     background: v.$accent-color;
     transform: translateY(-2px);
   }
-
 }
 
 .logoutWrapper {
@@ -147,7 +149,7 @@
 
 @media (max-width: v.$breakpoint-tablet) {
   .authCard {
-    max-width:350px;
+    max-width: 350px;
     padding: 1.5rem;
   }
 
