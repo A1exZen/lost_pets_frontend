@@ -12,4 +12,6 @@ Password: 123456
 - React Router Dom
 - Axios
 - React Hook Form
-- Jest
+
+- MockApi
+- ContextAPI
