@@ -7,16 +7,23 @@
   left: 0;
   width: 100%;
   z-index: 1000;
-  
-  background-color: rgba(v.$secondary-color, 0.6);
-  backdrop-filter: blur(5px);
-  box-shadow: v.$shadow-elegant;
+
+  background-color: transparent;
+  backdrop-filter: blur(0px);
+  box-shadow: none;
+  transition: all 0.3s ease;
+
+  &.scrolled {
+    background-color: rgba(v.$secondary-color, 0.5);
+    backdrop-filter: blur(10px);
+    box-shadow: v.$shadow-elegant;
+  }
 }
 
 .container {
   max-width: v.$container-max-width;
   margin: 0.5rem auto;
-  padding: 0 v.$container-padding;
+  padding: 0.5rem v.$container-padding;
   display: flex;
   justify-content: space-between; 
   align-items: center;
@@ -35,7 +42,11 @@
 }
 
 .logoText {
-  color: v.$text-color; 
+  color: v.$secondary-color;
+  &.scrolled {
+    color: v.$text-color;
+  }
+
 }
 
 .logoHighlight {
@@ -50,7 +61,6 @@
 
 .link, .logout {
   text-decoration: none;
-  color: v.$text-color;
   font-size: 1rem;
   font-weight: 500;
   padding: 0.5rem 0;
@@ -58,6 +68,11 @@
   transition: v.$transition;
   white-space: nowrap; 
   cursor: pointer;
+
+  color: v.$secondary-color;
+  &.scrolled {
+    color: v.$text-color;
+  }
 
   &::after {
     content: '';

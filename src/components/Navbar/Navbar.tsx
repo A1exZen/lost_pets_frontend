@@ -1,58 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuthStore } from '../../store/authStore';
-import { Logout } from '../Auth';
 import styles from './Navbar.module.scss';
+import { useAuth } from '@/hooks/useAuth';
+import { Logout } from '../Auth';
 
-export const Navbar: React.FC = () => {
-  const { user, isAuthenticated } = useAuthStore();
-  console.log(user);
-
+export const Navbar: React.FC = () => { 
+  const { user } = useAuth();
+  const [isScrolled, setIsScrolled] = useState(false)
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 100);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+  
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
         <Link to="/" className={styles.logo}>
-          <span className={styles.logoText}>Pet</span>
+          <span className={`${styles.logoText} ${isScrolled ? styles.scrolled : ''}`}>Pet</span>
           <span className={styles.logoHighlight}>Finder</span>
         </Link>
 
         <nav className={styles.navLinks}>
-          <Link to="/listings" className={styles.link}>
-            Объявления
-          </Link>
-
-          {isAuthenticated ? (
-            <>
-              <Link to="/dashboard" className={styles.link}>
-                Личный кабинет
-              </Link>
-              {user?.role === 'ADMIN' && (
-                <Link to="/admin" className={styles.link}>
-                  Админ панель
-                </Link>
-              )}
-              <Link to="/create-listing" className={styles.link}>
-                Создать объявление
-              </Link>
+          {user ? ( 
+            <> 
+              <Link to="/dashboard" className={styles.link}>Личный кабинет</Link> 
               <div className={styles.logout}>
-                <Logout />
+                <Logout /> 
               </div>
-            </>
-          ) : (
-            <>
-              <Link to="/login" className={styles.link}>
-                Вход
-              </Link>
-              <Link
-                to="/register"
-                className={`${styles.link} ${styles.link_primary}`}
-              >
-                Регистрация
-              </Link>
-            </>
-          )}
+            </> 
+          ) : ( 
+            <> 
+              <Link to="/login" className={`${styles.link} ${isScrolled ? styles.scrolled : ''}`}>Вход</Link>
+              <Link to="/register" className={`${styles.link} ${styles.link_primary}`}>Регистрация</Link> 
+            </> 
+          )} 
         </nav>
       </div>
-    </header>
-  );
+    </header> 
+  ); 
 };

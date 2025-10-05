@@ -6,6 +6,8 @@ import { ListingList } from '../Listings/ListingList';
 import { Loading } from '../Loading';
 import styles from './Home.module.scss';
 
+import bgDogs from '@/assets/bg-dogs.jpg';
+
 export const Home: React.FC = () => {
   const [listings, setListings] = useState<Listing[]>([]);
   const [filteredListings, setFilteredListings] = useState<Listing[]>([]);
@@ -15,7 +17,12 @@ export const Home: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const itemsPerPage = 10;
   const contentRef = useRef<HTMLDivElement>(null);
-
+  
+  useEffect(() => {
+    const img = new Image();
+    img.src = bgDogs;
+  }, []);
+  
   useEffect(() => {
     const fetchListings = async () => {
       try {
