@@ -5,6 +5,8 @@ import type { Pet } from '@/types/Pet';
 import { getPets } from '@/services/api';
 import { PetList } from '../Pets/PetList';
 
+import bgDogs from '@/assets/bg-dogs.jpg';
+
 export const Home: React.FC = () => {
   const [pets, setPets] = useState<Pet[]>([]);
   const [filteredPets, setFilteredPets] = useState<Pet[]>([]);
@@ -14,7 +16,12 @@ export const Home: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const itemsPerPage = 10;
   const contentRef = useRef<HTMLDivElement>(null);
-
+  
+  useEffect(() => {
+    const img = new Image();
+    img.src = bgDogs;
+  }, []);
+  
   useEffect(() => {
     const fetchPets = async () => {
       try {

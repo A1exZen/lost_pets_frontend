@@ -10,20 +10,12 @@
 .hero-section {
   position: relative;
   min-height: 100vh;
-  background: url('/bg-dogs.jpg') no-repeat center center/cover;
+  background:
+          linear-gradient(v.$overlay-color, v.$overlay-color),
+          url('@/assets/bg-dogs.jpg') no-repeat center center/cover;
   display: flex;
   align-items: center;
   justify-content: center;
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: v.$overlay-color;
-    z-index: 1;
-  }
 }
 
 .overlay {
