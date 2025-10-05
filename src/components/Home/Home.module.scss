@@ -10,7 +10,7 @@
 .hero-section {
   position: relative;
   min-height: 100vh;
-  background: url('/bg-dogs.jpg') no-repeat center center/cover;
+  background: url('src/assets/bg-dogs.jpg') no-repeat center center/cover;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -106,8 +106,8 @@
 
 .content {
   flex: 1;
-  margin: 1rem auto;
-  padding: 4rem v.$container-padding;
+  margin: 0 auto;
+  padding: 0 v.$container-padding;
 
   @keyframes fadeIn {
     from {

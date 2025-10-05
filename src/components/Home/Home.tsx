@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+import { listingsApi } from '@/api/listings';
+import type { Listing } from '@/types/listings';
+import { ListingList } from '../Listings/ListingList';
+import { Loading } from '../Loading';
 import styles from './Home.module.scss';
-import type { Pet } from '@/types/Pet';
-import { getPets } from '@/services/api';
-import { PetList } from '../Pets/PetList';
 
 export const Home: React.FC = () => {
-  const [pets, setPets] = useState<Pet[]>([]);
-  const [filteredPets, setFilteredPets] = useState<Pet[]>([]);
+  const [listings, setListings] = useState<Listing[]>([]);
+  const [filteredListings, setFilteredListings] = useState<Listing[]>([]);
   const [search, setSearch] = useState('');
   const [filterType, setFilterType] = useState('');
   const [page, setPage] = useState(1);
@@ -16,38 +17,35 @@ export const Home: React.FC = () => {
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const fetchPets = async () => {
+    const fetchListings = async () => {
       try {
-        const data = await getPets();
-        setPets(data);
-        setFilteredPets(data);
+        const data = await listingsApi.search();
+        setListings(data.listings);
+        setFilteredListings(data.listings);
       } catch {
-        console.error('Error fetching pets');
+        console.error('Error fetching listings');
       } finally {
         setLoading(false);
       }
     };
-    fetchPets();
+    fetchListings();
   }, []);
 
   useEffect(() => {
-    let result = pets;
+    let result = listings;
     if (search)
-      result = result.filter((p) =>
-        p.name.toLowerCase().includes(search.toLowerCase()),
+      result = result.filter(
+        (l) =>
+          l.title.toLowerCase().includes(search.toLowerCase()) ||
+          l.description.toLowerCase().includes(search.toLowerCase()),
       );
     if (filterType)
       result = result.filter(
-        (p) => p.type.toLowerCase() === filterType.toLowerCase(),
+        (l) => l.animalType.toLowerCase() === filterType.toLowerCase(),
       );
-    setFilteredPets(result);
+    setFilteredListings(result);
     setPage(1);
-  }, [search, filterType, pets]);
-
-  const paginatedPets = filteredPets.slice(
-    (page - 1) * itemsPerPage,
-    page * itemsPerPage,
-  );
+  }, [search, filterType, listings]);
 
   const handleFind = () => {
     if (contentRef.current) {
@@ -55,7 +53,7 @@ export const Home: React.FC = () => {
     }
   };
 
-  if (loading) return <div className={styles['loading']}>Загрузка...</div>;
+  if (loading) return <Loading />;
 
   return (
     <div className={styles['main-layout']}>
@@ -70,11 +68,11 @@ export const Home: React.FC = () => {
           <div className={styles['search-controls']}>
             <input
               type="text"
-              placeholder="Поиск по кличке"
+              placeholder="Поиск по названию"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className={styles['search-input']}
-              aria-label="Поиск по кличке питомца"
+              aria-label="Поиск по названию объявления"
             />
             <select
               value={filterType}
@@ -99,7 +97,11 @@ export const Home: React.FC = () => {
         </div>
       </header>
       <main className={styles['content']} ref={contentRef}>
-        <PetList pets={paginatedPets} />
+        <ListingList
+          showFilters={false}
+          searchQuery={search}
+          animalType={filterType}
+        />
         <div className={styles['pagination']}>
           <button
             disabled={page === 1}
@@ -111,7 +113,7 @@ export const Home: React.FC = () => {
           </button>
           <span className={styles['pagination-info']}>Страница {page}</span>
           <button
-            disabled={page * itemsPerPage >= filteredPets.length}
+            disabled={page * itemsPerPage >= filteredListings.length}
             onClick={() => setPage((p) => p + 1)}
             className={styles['pagination-button']}
             aria-label="Следующая страница"

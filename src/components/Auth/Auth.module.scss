@@ -6,7 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url('/bg-dogs.jpg') no-repeat center center/cover;
+  background: url('src/assets/bg-dogs.jpg') no-repeat center center/cover;
   position: relative;
 
   &:before {
@@ -105,6 +105,7 @@
 .submitButton {
   padding: v.$button-padding;
   background: rgba(v.$accent-color, 0.9);
+  line-height: 1.5;
   border: none;
   border-radius: v.$border-radius;
   color: v.$secondary-color;

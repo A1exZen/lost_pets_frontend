@@ -1,7 +1,7 @@
-import { useAuth } from '@/hooks/useAuth';
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { useAuthStore } from '../../store/authStore';
 import styles from './Auth.module.scss';
 
 type FormData = { email: string; password: string };
@@ -14,21 +14,16 @@ export const Login: React.FC = () => {
   } = useForm<FormData>({
     defaultValues: { email: '', password: '' },
   });
-  const { login } = useAuth();
+
+  const { login, isLoading } = useAuthStore();
   const navigate = useNavigate();
-  const [error, setError] = useState<string>('');
-  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async (data: FormData) => {
-    setError('');
-    setIsLoading(true);
     try {
       await login(data.email, data.password);
       navigate('/dashboard');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Ошибка входа');
-    } finally {
-      setIsLoading(false);
+      console.error('Login error:', err);
     }
   };
 
@@ -72,13 +67,8 @@ export const Login: React.FC = () => {
             {errors.password && (
               <p className={styles.error}>{errors.password.message}</p>
             )}
-            {error && <p className={styles.error}>{error}</p>}
           </div>
-          <button
-            type="submit"
-            className={styles.submitButton}
-            disabled={isLoading}
-          >
+          <button type="submit" className={styles.submitButton}>
             {isLoading ? 'Загрузка...' : 'Войти'}
           </button>
         </form>

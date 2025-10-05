@@ -1,13 +1,20 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuthStore } from '../../store/authStore';
 import styles from './Auth.module.scss';
-import { useAuth } from '@/hooks/useAuth';
 
 export const Logout: React.FC = () => {
-  const { logout } = useAuth();
+  const { logout } = useAuthStore();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
 
   return (
     <div className={styles.logoutWrapper}>
-      <button onClick={logout} className={styles.logoutButton}>
+      <button onClick={handleLogout} className={styles.logoutButton}>
         Выйти
       </button>
     </div>

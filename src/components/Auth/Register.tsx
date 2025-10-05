@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { useAuthStore } from '../../store/authStore';
 import styles from './Auth.module.scss';
-import { useAuth } from '@/hooks/useAuth';
 
 type FormData = {
   email: string;
   password: string;
   confirmPassword: string;
-  name: string;
 };
 
 export const Register: React.FC = () => {
@@ -18,25 +17,20 @@ export const Register: React.FC = () => {
     formState: { errors },
     watch,
   } = useForm<FormData>({
-    defaultValues: { email: '', password: '', confirmPassword: '', name: '' },
+    defaultValues: { email: '', password: '', confirmPassword: '' },
   });
-  const { register: registerUser } = useAuth();
+
+  const { register: registerUser, isLoading } = useAuthStore();
   const navigate = useNavigate();
-  const [error, setError] = useState<string>('');
-  const [isLoading, setIsLoading] = useState(false);
 
   const password = watch('password');
 
   const onSubmit = async (data: FormData) => {
-    setError('');
-    setIsLoading(true);
     try {
-      await registerUser(data.email, data.password, data.name);
+      await registerUser(data.email, data.password);
       navigate('/dashboard');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Ошибка регистрации');
-    } finally {
-      setIsLoading(false);
+      console.error('Register error:', err);
     }
   };
 
@@ -61,20 +55,9 @@ export const Register: React.FC = () => {
                   disabled={isLoading}
                 />
               </div>
-              <div className={styles.inputWrapper}>
-                <input
-                  {...register('name', { required: 'Имя обязательно' })}
-                  placeholder="Имя"
-                  className={styles.input}
-                  disabled={isLoading}
-                />
-              </div>
             </div>
             {errors.email && (
               <p className={styles.error}>{errors.email.message}</p>
-            )}
-            {errors.name && (
-              <p className={styles.error}>{errors.name.message}</p>
             )}
           </div>
           <div className={styles.formGroup}>
@@ -91,6 +74,10 @@ export const Register: React.FC = () => {
                   disabled={isLoading}
                 />
               </div>
+            </div>
+          </div>
+          <div className={styles.formGroup}>
+            <div className={styles.inputRow}>
               <div className={styles.inputWrapper}>
                 <input
                   type="password"
@@ -111,7 +98,6 @@ export const Register: React.FC = () => {
             {errors.confirmPassword && (
               <p className={styles.error}>{errors.confirmPassword.message}</p>
             )}
-            {error && <p className={styles.error}>{error}</p>}
           </div>
           <button
             type="submit"

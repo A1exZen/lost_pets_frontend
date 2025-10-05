@@ -5,59 +5,66 @@ import {
   BrowserRouter as Router,
   Routes,
 } from 'react-router-dom';
+import { AdminPage } from './components/Admin';
 import { Login, Register } from './components/Auth';
 import { Dashboard } from './components/Dashboard';
 import { Home } from './components/Home';
+import {
+  CreateListingForm,
+  ListingDetail,
+  ListingList,
+} from './components/Listings';
 import { Navbar } from './components/Navbar';
-import { PetForm } from './components/Pets/PetForm/index.ts';
-import PetEdit from './components/Pets/PetForm/PetEdit.tsx';
-import { AuthProvider } from './contexts/AuthContext';
-import { useAuth } from './hooks/useAuth';
+import { useAuthStore } from './store/authStore';
 import './styles/globals.scss';
 
 const ProtectedRoute: React.FC<{ children: React.ReactElement }> = ({
   children,
 }) => {
-  const { user } = useAuth();
-  return user ? children : <Navigate to="/login" />;
+  const { isAuthenticated } = useAuthStore();
+  return isAuthenticated ? children : <Navigate to="/login" />;
 };
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route
-            path="/add-pet"
-            element={
-              <ProtectedRoute>
-                <PetForm />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/edit-pet/:id"
-            element={
-              <ProtectedRoute>
-                <PetEdit />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </Router>
-    </AuthProvider>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+        <Route path="/listings" element={<ListingList />} />
+        <Route path="/listing/:id" element={<ListingDetail />} />
+
+        <Route
+          path="/create-listing"
+          element={
+            <ProtectedRoute>
+              <CreateListingForm />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminPage />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </Router>
   );
 }
 
